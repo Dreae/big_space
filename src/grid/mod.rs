@@ -115,9 +115,9 @@ impl Grid {
             return (GridCell::default(), input.as_vec3());
         }
 
-        let x_r = round(x / l);
-        let y_r = round(y / l);
-        let z_r = round(z / l);
+        let x_r = trunc(x / l);
+        let y_r = trunc(y / l);
+        let z_r = trunc(z / l);
         let t_x = x - x_r * l;
         let t_y = y - y_r * l;
         let t_z = z - z_r * l;
@@ -166,15 +166,15 @@ impl Grid {
     }
 }
 
-fn round(x: f64) -> f64 {
+fn trunc(x: f64) -> f64 {
     #[cfg(feature = "libm")]
     {
-        libm::round(x)
+        libm::trunc(x)
     }
 
     #[cfg(all(not(feature = "libm"), feature = "std"))]
     {
-        x.round()
+        x.trunc()
     }
 
     #[cfg(all(not(feature = "libm"), not(feature = "std")))]
